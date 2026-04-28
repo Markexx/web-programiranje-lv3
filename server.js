@@ -45,7 +45,7 @@ app.get('/slike', (req, res) => {
 });
 
 // Pokretanje servera na dinamičkom portu
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
