@@ -1,0 +1,165 @@
+:root {
+    --comedy-color: linear-gradient(135deg, #f1c40f, #f39c12);
+    --drama-color: linear-gradient(135deg, #e67e22, #d35400);
+    --other-color: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    --chart-size: 300px;
+    --transition-speed: 0.5s;
+}
+
+.chart-main {
+    padding: 40px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    min-height: 80vh;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.pie-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.pie-chart {
+    width: var(--chart-size);
+    height: var(--chart-size);
+    border-radius: 50%;
+    background: conic-gradient(
+        #f1c40f 0% 40%, 
+        #e67e22 40% 75%, 
+        #95a5a6 75% 100%
+    );
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: transform var(--transition-speed);
+    animation: rotateIn 1.5s ease-out;
+}
+
+.pie-chart:hover {
+    transform: scale(1.05);
+}
+
+.chart-legend {
+    list-style: none;
+    margin-top: 25px;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.dot.comedy { background: #f1c40f; }
+.dot.drama { background: #e67e22; }
+.dot.other { background: #95a5a6; }
+
+.histogram-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 35px;
+    height: 250px;
+    margin: 60px 0 80px 0;
+    padding: 0 20px;
+    border-bottom: 2px solid #333;
+    width: 100%;
+    max-width: 500px;
+}
+
+.bar {
+    flex: 1;
+    max-width: 60px;
+    background: var(--color);
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    cursor: pointer;
+    height: 0;
+    animation: growBar 1.5s ease-out forwards;
+    transition: filter 0.3s;
+}
+
+.bar:hover {
+    filter: brightness(1.1);
+}
+
+.bar:hover::after {
+    content: attr(data-info);
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2c3e50;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.bar::before {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #333;
+}
+
+@keyframes rotateIn {
+    from { transform: rotate(-180deg) scale(0); opacity: 0; }
+    to { transform: rotate(0) scale(1); opacity: 1; }
+}
+
+@keyframes growBar {
+    from { height: 0; }
+    to { height: var(--h); }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --chart-size: 220px;
+    }
+    
+    .histogram-wrapper {
+        height: 180px;
+        gap: 20px;
+    }
+    
+    .bar::before {
+        font-size: 0.7rem;
+        bottom: -35px;
+    }
+
+    .chart-legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
